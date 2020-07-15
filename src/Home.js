@@ -4,18 +4,29 @@ import { render } from "react-dom";
 import Dashboard from "./Dashboard";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
+
 export default function Home(props) {
+  
   const history = props
 
   const handleClick = (props) => {
     props.history.push('/dashboard')
   }
-  
+
+  const useStyles = makeStyles(()=> ({
+    buttonStyles: {
+      flex: 1
+    }
+  }))
+
+  const classes = useStyles()
+
   return (
     <React.Fragment>
       <CssBaseline />

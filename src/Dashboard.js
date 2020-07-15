@@ -11,7 +11,7 @@ function getTooltipContent(marker) {
 export default function Globe() {
   const randomMarkers = defaultMarkers.map(marker => ({
     ...marker,
-    value: Math.floor(Math.random() * 100),
+    // value: Math.floor(Math.random() * 2.5),
   }));
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
