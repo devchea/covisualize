@@ -38,7 +38,7 @@ export default function Home(props) {
           >
           Enter
         </Button>
-        <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '70vh' }} />
+        {/* <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '70vh' }} /> */}
       </Container>
     </React.Fragment>
   );
