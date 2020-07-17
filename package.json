@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Interactive ReactGlobe with markers",
   "keywords": [],
-  "main": "src/dashboard.js",
+  "main": "src/App.js",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
