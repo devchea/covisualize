@@ -5,24 +5,6 @@ import StatPanel from './StatPanel'
 import { makeStyles, Paper, Grid} from "@material-ui/core";
 
 
-
-// export default function Dashboard() {
-  
-//   return (
-//     <div>
-//       <Globe/>
-    
-//       <Box m={20}>
-//         <NewsPanel/>
-//       </Box>
-    
-//       <StatPanel/>
-//     </div>
-//   );
-// }
-
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 3,
@@ -39,10 +21,16 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         <Grid item>
           {<Globe />}
           <Paper className={classes.paper}></Paper>
+        </Grid>
+      </Grid>
+      <Grid container spacing={4}>
+        <Grid item>
+          {<NewsPanel />}
+          {/* <Paper className={classes.paper}></Paper> */}
         </Grid>
       </Grid>
     </div>
