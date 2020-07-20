@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#4CAF50'
 
   },
+  
   buttonClear: {
     position: 'absolute',
     fontSize: '18',
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     display: 'inline-block',
     fontSize: '16px',
-    backgroundColor: '#4CAF50'
+    backgroundColor: '#transparent'
 
   },
   tooltipStyle: {
@@ -62,87 +63,70 @@ function Globe () {
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
   const [stats, setStats] = useState(null);
-
-  console.log('markers:', markers)
-  console.log('event:', event)
-  console.log('details:', details)
-  // console.log('stat:', stats)
-
+  const [news, setNews] = useState(null)
 
   const getTooltipContent = (marker) => {
     return `${marker.city}`;
   }
   
-  const handleClickMarker = (marker, markerObject, e) => {
+
+  const handleClickMarker = (marker, markerObject) => {
     // console.log('e:', e)
     console.log('marker:', marker)
+      
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data)
+    //   })
 
     // console.log('markerObject:', markerObject)
     // console.log('onclick markers:', markers)
     // console.log('onclick event:', event)
     // console.log('onclick details:', details)
-    setEvent({
-      type: 'CLICK',
-      marker,
-      // markerObjectID: markerObject.uuid,
-      // pointerEventPosition: { x: event.clientX, y: event.clientY },
-    });
-    setDetails(getTooltipContent(marker))
-  }
-  // useEffect(() => {
-    // fetch('https://api.covid19api.com/total/country/south-africa/status/confirmed?from=2020-07-16T00:00:00Z&to=2020-07-18T00:00:00Z')
-    //   .then(res => res.json())
-    //   .then(stats => {
-        // console.log('useEffect:')
-        // setStats(stats)
-      // })
-  // })
-
-  // const onClickMarker = (e) => {
-  //   console.log('e:',e)
-  //   setEvent({
-  //     type: 'CLICK',
-  //     marker,
-  //     markerObjectID: markerObject.uuid,
-  //     pointerEventPosition: { x: event.clientX, y: event.clientY },
-  //   });
-  //   setDetails(getTooltipContent(marker));
-  // }
-
-  // const onDefocusNow = (previousCoordinates, event) => {
-    // console.log('defocus e:', event)
-    // console.log('defocus pc:', previousCoordinates)
     // setEvent({
-    //   type: 'DEFOCUS',
-    //   previousCoordinates,
-    //   pointerEventPosition: { x: event.clientX, y: event.clientY },
+    //   type: 'CLICK',
+    //   marker,
     // });
-    // setDetails(null);
-  // }
+    // setDetails(getTooltipContent(marker))
+    
+  }
+
 
   return (
-    < div 
-    style = {
-      {
-        width: "100vw",
-        height: "60vh",
-        position: 'absolute',
-        top: '0',
-        right: '0',
-        bottom: '0',
-        left: '0',
-        border: '1px solid gray',
+
+    <div
+      id='div1'
+      style={
+        {
+          position:'relative',
+          width: '99vw',
+          height: '60vh',
+          border: '1px solid gray'
+        }
       }
-    } >
+    >
       <ReactGlobe
         markers={markers}
         markerOptions={{
           getTooltipContent,
           radiusScaleRange: [0.009, 0.009],
         }}
-        onClickMarker={(e) => handleClickMarker(e)}
-        // onDefocus={onDefocusNow}
+        onClickMarker={(e)=>handleClickMarker(e)}
       />
+      <Button
+        className={classes.buttonShow}
+        onClick={() => setMarkers(allMarkers)}
+        style={{ backgroundColor: 'transparent' }}
+      >
+        Show Cities
+      </Button>
+      <Button
+        className={classes.buttonClear}
+        disabled={markers.length === 0}
+        onClick={() => setMarkers([])}
+      >
+        Clear Markers
+      </Button>
       {details && (
         <div className={classes.tooltipStyle}
           
@@ -151,24 +135,26 @@ function Globe () {
           <p>Show Covid stats here from the api</p>
         </div>
       )}
-      <div>
-        <Box m={10} p={1}>
-          <Button
-            className={classes.buttonShow}
-            onClick={() => setMarkers(allMarkers)}
-          >
-            Show Cities
-          </Button>
-          <Button
-            className={classes.buttonClear}
-            disabled={markers.length === 0}
-            onClick={() => setMarkers([])}
-          >
-            Clear Cities
-          </Button>
-        </Box>
-      </div>
     </div>
+
+      // <div>
+      //   <Box m={10} p={1}>
+      //     <Button
+      //       className={classes.buttonShow}
+      //       onClick={() => setMarkers(allMarkers)}
+      //     >
+      //       Show Cities
+      //     </Button>
+          // <Button
+          //   className={classes.buttonClear}
+          //   disabled={markers.length === 0}
+          //   onClick={() => setMarkers([])}
+          // >
+          //   Clear Cities
+          // </Button>
+      //   </Box>
+      // </div>
+    // </div>
   );
 }
 
