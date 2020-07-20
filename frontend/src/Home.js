@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 export default function Home(props) {
 
   const handleClick = (props) => {
-    props.history.push('/login')
+    props.history.push('/signin')
   }
 
   return (
