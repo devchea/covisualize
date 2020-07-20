@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -33,8 +33,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [errors, setError] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fetch("http://localhost:3000/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+      .then(res => res.json())
+      .then(userInfo => {
+        localStorage.token = userInfo.token
+        if (localStorage.token === 'undefined'){
+          props.history.push('/login')
+        } else {
+          props.history.push('/dashboard')
+        }
+      })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -46,16 +72,16 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            onChange={(e) => setUsername(e.target.value)}
             autoFocus
           />
           <TextField
@@ -63,11 +89,11 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            name="password"
+            input name="password"
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
