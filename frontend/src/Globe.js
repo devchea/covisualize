@@ -6,6 +6,9 @@ import defaultMarkers from './Markers';
 import Box from "@material-ui/core/Box";
 import { makeStyles } from '@material-ui/core/styles';
 
+
+const newsAPIKey = process.env.REACT_APP_NEWS_API_KEY
+
 const useStyles = makeStyles((theme) => ({
   buttonShow: {
     position: "absolute",
@@ -73,6 +76,7 @@ function Globe () {
   const handleClickMarker = (marker, markerObject) => {
     // console.log('e:', e)
     console.log('marker:', marker)
+    // fetch(`https://gnews.io/api/v3/search?q=${marker.city}%20covid%20&token=${newsAPIKey}`)
     //   .then(res => res.json())
     //   .then(data => {
     //     console.log(data)
