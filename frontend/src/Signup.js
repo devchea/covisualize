@@ -52,12 +52,11 @@ export default function SignUp(props) {
         })
       })
       .then(res => res.json())
-      .then(userInfo => {
-        console.log('username:', username)
-        console.log('password:', password)
-        localStorage.token = userInfo.token
-        if (localStorage.token === 'undefined') {
+      .then(data => {
+        console.log(data.errors)
+        if (data.errors === 'Please choose a different username') {
           props.history.push('/signup')
+          alert (`${data.errors}`)
         } else {
           props.history.push('/dashboard')
         }
@@ -115,6 +114,9 @@ export default function SignUp(props) {
               <Link href="/signin" variant="body2">
                 Already have an account? Sign in
               </Link>
+            </Grid>
+            <Grid item>
+              ${errors}
             </Grid>
           </Grid>
         </form>
