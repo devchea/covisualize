@@ -116,7 +116,7 @@ export default function SignUp(props) {
               </Link>
             </Grid>
             <Grid item>
-              ${errors}
+              {errors}
             </Grid>
           </Grid>
         </form>

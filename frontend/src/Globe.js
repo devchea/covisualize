@@ -55,58 +55,38 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Globe () {
+function Globe (props) {
   const classes = useStyles()
-
-  const allMarkers = defaultMarkers.map(marker => ({
+  // console.log(props.fetchNews)
+  const allMarkers = defaultMarkers.map((marker) => ({
     ...marker,
-    color: 'red'
+    color: "#ff2600",
   }));
+
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
   const [stats, setStats] = useState(null);
-  const [news, setNews] = useState(null)
+
 
   const getTooltipContent = (marker) => {
     return `${marker.city}`;
   }
-  
 
-  const handleClickMarker = (marker, markerObject) => {
-    // console.log('e:', e)
-    console.log('marker:', marker)
-    // fetch(`https://gnews.io/api/v3/search?q=${marker.city}%20covid%20&token=${newsAPIKey}`)
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     console.log(data)
-    //   })
 
-    // console.log('markerObject:', markerObject)
-    // console.log('onclick markers:', markers)
-    // console.log('onclick event:', event)
-    // console.log('onclick details:', details)
-    // setEvent({
-    //   type: 'CLICK',
-    //   marker,
-    // });
-    // setDetails(getTooltipContent(marker))
-    
+  const handleClickMarker = (marker) => {
+    setDetails(getTooltipContent(marker))
   }
 
-
   return (
-
     <div
-      id='div1'
-      style={
-        {
-          position:'relative',
-          width: '99vw',
-          height: '60vh',
-          border: '1px solid gray'
-        }
-      }
+      id="div1"
+      style={{
+        position: "relative",
+        width: "99vw",
+        height: "60vh",
+        border: "1px solid gray",
+      }}
     >
       <ReactGlobe
         markers={markers}
@@ -114,50 +94,36 @@ function Globe () {
           getTooltipContent,
           radiusScaleRange: [0.009, 0.009],
         }}
-        onClickMarker={(e)=>handleClickMarker(e)}
+        onClickMarker={(e) => {
+          handleClickMarker(e);
+          props.fetchNews()
+          setDetails(getTooltipContent(e));
+        }}
       />
       <Button
         className={classes.buttonShow}
         onClick={() => setMarkers(allMarkers)}
-        style={{ backgroundColor: 'transparent' }}
+        style={{ backgroundColor: "transparent" }}
       >
         Show Cities
       </Button>
       <Button
         className={classes.buttonClear}
         disabled={markers.length === 0}
-        onClick={() => setMarkers([])}
+        onClick={() => {
+          setDetails([]);
+          setMarkers([]);
+        }}
       >
         Clear Markers
       </Button>
-      {details && (
-        <div className={classes.tooltipStyle}
-          
-        >
+      {/* {details && ( */}
+        <div className={classes.tooltipStyle} disabled={markers.length === 0}>
           <p>{details}</p>
-          <p>Show Covid stats here from the api</p>
+          <p>{}</p>
         </div>
-      )}
+      {/* )} */}
     </div>
-
-      // <div>
-      //   <Box m={10} p={1}>
-      //     <Button
-      //       className={classes.buttonShow}
-      //       onClick={() => setMarkers(allMarkers)}
-      //     >
-      //       Show Cities
-      //     </Button>
-          // <Button
-          //   className={classes.buttonClear}
-          //   disabled={markers.length === 0}
-          //   onClick={() => setMarkers([])}
-          // >
-          //   Clear Cities
-          // </Button>
-      //   </Box>
-      // </div>
-    // </div>
   );
 }
 
