@@ -56,8 +56,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   root: {
-    flexGrow: 3,
+    flexGrow: 1,
   },
+  cardContainer: {
+    display: "flex",
+    margin: "20px"
+  },
+  gridItem: {
+    margin: '40px'
+  }
   // paper: {
   //   padding: "1px",
   //   margin: "1px",
@@ -118,7 +125,7 @@ function Globe () {
       .then((data) => {
         // console.log("data:", data.value);
         setNews(data.value);
-        console.log('apicall')
+        // console.log(data.value.image.thumbnail)
         // console.log("markers:", markers);
         // console.log("apikey:", newsAPIKey);
         // console.log("details", details);
@@ -127,14 +134,13 @@ function Globe () {
 
   return (
     <div
-      id="div1"
+    >
+      <div id="div1"
       style={{
         position: "relative",
         width: "99vw",
-        height: "60vh",
-        border: "1px solid gray",
-      }}
-    >
+        height: "55vh"
+      }}>
       <ReactGlobe
         markers={markers}
         markerOptions={{
@@ -170,8 +176,9 @@ function Globe () {
         <p>{}</p>
       </div>
       {/* )} */}
-      <Grid container spacing={4}>
-        <Grid item>
+      </div>
+      <div className={classes.gridItem}>
+      <Grid container item xs={12} spacing={0}>
           {news.map((newsObj) => (
             <NewsPanel
               key={newsObj.id}
@@ -182,9 +189,8 @@ function Globe () {
               url={newsObj.url}
             />
           ))}
-          {/* <Paper className={classes.paper}></Paper> */}
-        </Grid>
       </Grid>
+      </div>
     </div>
   );
 }

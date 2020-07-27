@@ -1,5 +1,10 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+
+
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default function Home(props) {
 
@@ -8,42 +13,14 @@ export default function Home(props) {
   }
 
   return (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick = {() => handleClick(props)}
-          >
-          Enter
-        </Button>
+    <Box>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => handleClick(props)}
+      >
+        Enter
+      </Button>
+    </Box>
   );
 }
-
-// export default class App extends React.Component {
-
-//   useStyles = makeStyles((theme) => ({
-//     root: {
-//       '& > *': {
-//         margin: theme.spacing(1),
-//       },
-//     },
-//   }));
-
-//   handleClick = () => {
-//     this.props.history.push('/dashboard')
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//           <Button
-//             variant="contained"
-//             color="primary"
-//             onClick={this.handleClick}
-//             >
-//             Enter
-//           </Button>
-//       </div>
-//     );
-//   }
-// }
-
