@@ -10,42 +10,52 @@ const useStyles = makeStyles((theme) => ({
   buttonShow: {
     position: "absolute",
     fontSize: "18",
-    top: "0",
-    left: "0",
-    backgroundcolor: "#4CAF50",
-    border: "none",
+    top: "10px",
+    left: "10px",
+    border: "1px",
+    borderColor: "white",
+    borderStyle: "solid",
     color: "white",
     padding: "15px 32px",
     textalign: "center",
     textdecoration: "none",
     display: "inline-block",
     fontsize: "16px",
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#transparent",
+    borderRadius: "25px",
   },
 
   buttonClear: {
     position: "absolute",
     fontSize: "18",
-    top: "0",
-    right: "0",
-    backgroundcolor: "#4CAF50",
-    border: "none",
+    top: "10px",
+    right: "10px",
+    border: "1px",
+    borderColor: "white",
+    borderStyle: "solid",
     color: "white",
     padding: "15px 32px",
-    textAlign: "center",
-    textDecoration: "none",
+    textalign: "center",
+    textdecoration: "none",
     display: "inline-block",
-    fontSize: "16px",
+    fontsize: "16px",
     backgroundColor: "#transparent",
+    borderRadius: "25px",
   },
   tooltipStyle: {
-    background: "#edf0c0",
+    backgroundColor: "#transparent",
+    bottom: "10px",
+    left: "10px",
     position: "absolute",
     padding: "15px 32px",
-    fontSize: "52",
-    bottom: "0",
-    left: "0",
+    textAlign: "center",
+    fontSize: "16px",
+    display: "inline-block",
     borderRadius: "25px",
+    border: "1px",
+    borderColor: "white",
+    borderStyle: "solid",
+    color: "white",
   },
   paper: {
     position: "absolute",
@@ -60,11 +70,11 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContainer: {
     display: "flex",
-    margin: "20px"
+    margin: "20px",
   },
   gridItem: {
-    margin: '40px'
-  }
+    margin: "40px",
+  },
   // paper: {
   //   padding: "1px",
   //   margin: "1px",
@@ -97,22 +107,9 @@ function Globe () {
     setDetails(getTooltipContent(marker))
   }
 
-  //test fetch
-  // const fetchNews = () => {
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log("dd", data);
-  //       setNews(data)
-  //       console.log('news:', news)
-  //       console.log('details:', details)
-  //     });
-  // };
+  const fetchNews = async () => {
 
-  //real fetch
-  const fetchNews = (marker) => {
-
-    fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?fromPublishedDate=2020-07-24T00%253A00%253A00&autoCorrect=false&pageNumber=1&pageSize=10&q=${details}%20covid&safeSearch=false`,
+    await fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?fromPublishedDate=2020-07-24T00%253A00%253A00&autoCorrect=false&pageNumber=1&pageSize=10&q=${details}%20covid&safeSearch=false`,
       {
         method: "GET",
         headers: {
@@ -123,12 +120,8 @@ function Globe () {
     )
       .then((res) => res.json())
       .then((data) => {
-        // console.log("data:", data.value);
+        console.log('apicall')
         setNews(data.value);
-        // console.log(data.value.image.thumbnail)
-        // console.log("markers:", markers);
-        // console.log("apikey:", newsAPIKey);
-        // console.log("details", details);
       });
   };
 
@@ -156,20 +149,18 @@ function Globe () {
       <Button
         className={classes.buttonShow}
         onClick={() => setMarkers(allMarkers)}
-        style={{ backgroundColor: "transparent" }}
       >
         Show Cities
       </Button>
       <Button
         className={classes.buttonClear}
-        disabled={markers.length === 0}
         onClick={() => {
           setDetails([]);
           setMarkers([]);
         }}
       >
         Clear Markers
-      </Button>
+      </Button >
       {/* {details && ( */}
       <div className={classes.tooltipStyle} disabled={markers.length === 0}>
         <p>{details}</p>
@@ -178,13 +169,13 @@ function Globe () {
       {/* )} */}
       </div>
       <div className={classes.gridItem}>
-      <Grid container item xs={12} spacing={0}>
+      <Grid container item xs={12} spacing={3}>
           {news.map((newsObj) => (
             <NewsPanel
               key={newsObj.id}
               title={newsObj.title}
               description={newsObj.description}
-              image={newsObj.image}
+              image={newsObj.image.url}
               source={newsObj.provider.name}
               url={newsObj.url}
             />
