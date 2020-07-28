@@ -27,6 +27,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    //add padding left
     paddingLeft: "10px",
     paddingBottom: spacing(2),
     [breakpoints.up("md")]: {
@@ -70,9 +71,6 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   cta: {
     marginTop: 24,
     textTransform: "initial",
-  },
-  infoContent: {
-    lineHeight: 1
   }
 }));
 
@@ -89,7 +87,6 @@ export const NewsPanel = React.memo(function BlogCard(props) {
   const title = props.title.replace(/<b>/g, "").replace(/<\/b>/g, "").substr(0, 100).concat('...');
   //get date for card
   const imageUrl = props.image
-  console.log(imageUrl)
   const todaysDate = moment().format("MM/DD/YYYY");
   return (
     <Card className={cx(styles.root, shadowStyles.root)}>
@@ -104,7 +101,7 @@ export const NewsPanel = React.memo(function BlogCard(props) {
       <CardContent>
         <TextInfoContent
           // classes={contentStyles}
-          className={textInfo}
+          className={styles.infoContent}
           overline={todaysDate}
           heading={title}
           body={description}
