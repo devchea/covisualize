@@ -19,7 +19,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     transition: "0.3s",
     boxShadow: "0px 19px 80px rgba(0, 0, 0, 0.3)",
     position: "relative",
-    maxWidth: 500,
+    maxWidth: 470,
     maxHeight: 300,
     marginLeft: "auto",
     overflow: "initial",
@@ -27,6 +27,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    paddingLeft: "10px",
     paddingBottom: spacing(2),
     [breakpoints.up("md")]: {
       flexDirection: "row",
