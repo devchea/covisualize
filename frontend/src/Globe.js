@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import ReactGlobe from 'react-globe';
 import Button from "@material-ui/core/Button";
 import defaultMarkers from './Markers';
@@ -43,19 +43,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "25px",
   },
   tooltipStyle: {
-    backgroundColor: "#transparent",
+    position: "absolute",
+    fontSize: "18px",
     bottom: "10px",
     left: "10px",
-    position: "absolute",
-    padding: "15px 32px",
-    textAlign: "center",
-    fontSize: "16px",
-    display: "inline-block",
-    borderRadius: "25px",
     border: "1px",
     borderColor: "white",
-    borderStyle: "solid",
+    // borderStyle: "solid",
+    padding: "15px 32px",
+    textAlign: "center",
+    display: "inline-block",
     color: "white",
+    backgroundColor: "#transparent",
+    borderRadius: "25px",
   },
   paper: {
     position: "absolute",
@@ -93,7 +93,7 @@ function Globe () {
 
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
-  const [details, setDetails] = useState(null);
+  const [details, setDetails] = useState(["Current City"]);
   const [stats, setStats] = useState(null);
   const [news, setNews] = useState([]);
 
@@ -103,13 +103,13 @@ function Globe () {
   }
 
 
-  const handleClickMarker = (marker) => {
-    setDetails(getTooltipContent(marker))
-  }
+  // const handleClickMarker = (marker) => {
+  //   setDetails(getTooltipContent(marker))
+  // }
 
-  const fetchNews = async () => {
+  const fetchNews = () => {
 
-    await fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?fromPublishedDate=2020-07-24T00%253A00%253A00&autoCorrect=false&pageNumber=1&pageSize=10&q=${details}%20covid&safeSearch=false`,
+    fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?fromPublishedDate=2020-07-24T00%253A00%253A00&autoCorrect=false&pageNumber=1&pageSize=10&q=${details}%20covid&safeSearch=false`,
       {
         method: "GET",
         headers: {
@@ -120,10 +120,15 @@ function Globe () {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log('apicall')
         setNews(data.value);
       });
   };
+
+  useEffect(() => {
+  fetchNews();
+  console.log(details)
+  },[details]);
+
 
   return (
     <div
@@ -141,9 +146,9 @@ function Globe () {
           radiusScaleRange: [0.009, 0.009],
         }}
         onClickMarker={(e) => {
-          handleClickMarker(e);
+          // handleClickMarker(e);
           setDetails(getTooltipContent(e));
-          fetchNews();
+          // fetchNews();
         }}
       />
       <Button
@@ -169,7 +174,8 @@ function Globe () {
       {/* )} */}
       </div>
       <div className={classes.gridItem}>
-      <Grid container item xs={12} spacing={3}>
+        <p>General News</p>
+      <Grid container item xs={12} spacing={0}>
           {news.map((newsObj) => (
             <NewsPanel
               key={newsObj.id}
