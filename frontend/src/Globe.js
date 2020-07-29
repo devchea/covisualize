@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import defaultMarkers from './Markers';
 import { makeStyles, Grid } from "@material-ui/core";
 import NewsPanel from "./NewsPanel";
+import Logo from "./logo.png"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,7 +104,7 @@ function Globe () {
 
   const fetchNews = () => {
 
-    fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?fromPublishedDate=2020-07-24T00%253A00%253A00&autoCorrect=false&pageNumber=1&pageSize=10&q=${details}%20covid&safeSearch=false`,
+    fetch(`https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI?fromPublishedDate=2020-07-24T00%253A00%253A00&autoCorrect=false&pageNumber=1&pageSize=18&q=${details}%20covid&safeSearch=false`,
       {
         method: "GET",
         headers: {
@@ -114,7 +115,6 @@ function Globe () {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log('fetch', data)
         setNews(data.value);
       });
   };
@@ -123,7 +123,6 @@ function Globe () {
   fetchNews();
   console.log(details)
   },[details]);
-
 
   return (
     <div
@@ -168,7 +167,7 @@ function Globe () {
       {/* )} */}
       </div>
       <div className={classes.gridItem}>
-        <h4>News</h4>
+      <h4>{}News</h4>
       <Grid container item xs={12} spacing={0}>
           {news.map((newsObj) => (
             <NewsPanel
