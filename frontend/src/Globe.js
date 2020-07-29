@@ -49,13 +49,11 @@ const useStyles = makeStyles((theme) => ({
     left: "10px",
     border: "1px",
     borderColor: "white",
-    // borderStyle: "solid",
     padding: "15px 32px",
     textAlign: "center",
     display: "inline-block",
     color: "white",
     backgroundColor: "#transparent",
-    borderRadius: "25px",
   },
   paper: {
     position: "absolute",
@@ -73,7 +71,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px",
   },
   gridItem: {
-    margin: "40px",
+    margin: "20px",
+    paddingRight: "20px"
   },
   // paper: {
   //   padding: "1px",
@@ -93,7 +92,7 @@ function Globe () {
 
   const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
-  const [details, setDetails] = useState(["Current City"]);
+  const [details, setDetails] = useState([""]);
   const [stats, setStats] = useState(null);
   const [news, setNews] = useState([]);
 
@@ -101,11 +100,6 @@ function Globe () {
   const getTooltipContent = (marker) => {
     return `${marker.city}`;
   }
-
-
-  // const handleClickMarker = (marker) => {
-  //   setDetails(getTooltipContent(marker))
-  // }
 
   const fetchNews = () => {
 
@@ -120,6 +114,7 @@ function Globe () {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log('fetch', data)
         setNews(data.value);
       });
   };
@@ -133,22 +128,21 @@ function Globe () {
   return (
     <div
     >
-      <div id="div1"
+      <div
       style={{
         position: "relative",
         width: "99vw",
-        height: "55vh"
+        height: "55vh",
       }}>
       <ReactGlobe
+
         markers={markers}
         markerOptions={{
           getTooltipContent,
           radiusScaleRange: [0.009, 0.009],
         }}
         onClickMarker={(e) => {
-          // handleClickMarker(e);
           setDetails(getTooltipContent(e));
-          // fetchNews();
         }}
       />
       <Button
@@ -174,7 +168,7 @@ function Globe () {
       {/* )} */}
       </div>
       <div className={classes.gridItem}>
-        <p>General News</p>
+        <h4>News</h4>
       <Grid container item xs={12} spacing={0}>
           {news.map((newsObj) => (
             <NewsPanel
