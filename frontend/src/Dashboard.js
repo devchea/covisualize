@@ -1,6 +1,7 @@
 import React from "react";
 import Globe from "./Globe";
 import { makeStyles, Paper, Grid } from "@material-ui/core";
+import theme from "./theme";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -8,10 +9,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 3,
   },
   paper: {
-    padding: "1px",
-    margin: "1px",
     textAlign: "center",
-  }
+  },
+  bg: {
+    color: "black",
+  },
 }));
 
 
@@ -21,9 +23,9 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <Grid container spacing={0}>
         <Grid item>
-          {<Globe/>}
+            <Globe/>
           <Paper className={classes.paper}></Paper>
         </Grid>
       </Grid>

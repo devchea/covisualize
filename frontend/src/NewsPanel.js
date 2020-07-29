@@ -9,7 +9,6 @@ import TextInfoContent from "@mui-treasury/components/content/textInfo";
 import { useBlogTextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/blog";
 import { useOverShadowStyles } from "@mui-treasury/styles/shadow/over";
 import moment from "moment"; 
-import textInfo from "@mui-treasury/components/content/textInfo";
 import defaultCardImg from "./default_card_image.jpg"
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
@@ -81,10 +80,14 @@ export const NewsPanel = React.memo(function BlogCard(props) {
     ...contentStyles
   } = useBlogTextInfoContentStyles();
   const shadowStyles = useOverShadowStyles();
-  //remove '<b> </b>' from description
-  const description = props.description.replace(/<b>/g, "").replace(/<\/b>/g, "").substr(0,200).concat('...');
   //remove '<b> </b>' from title
-  const title = props.title.replace(/<b>/g, "").replace(/<\/b>/g, "").substr(0, 100).concat('...');
+  const title = ((props.title.replace(/<b>/g, "").replace(/<\/b>/g, "").length <= 97) ?
+    props.title.replace(/<b>/g, "").replace(/<\/b>/g, ""):
+    props.title.replace(/<b>/g, "").replace(/<\/b>/g, "").substr(0, 97).concat('...'));
+  //remove '<b> </b>' from description
+  const description = ((props.description.replace(/<b>/g, "").replace(/<\/b>/g, "").length <= 222) ?
+    props.description.replace(/<b>/g, "").replace(/<\/b>/g, ""):
+    props.description.replace(/<b>/g, "").replace(/<\/b>/g, "").substr(0, 222).concat('...'));
   //get date for card
   const imageUrl = props.image
   const todaysDate = moment().format("MM/DD/YYYY");
@@ -95,7 +98,7 @@ export const NewsPanel = React.memo(function BlogCard(props) {
       ) : (
         <CardMedia
           className={styles.media}
-          image={"https://www.nationalgeographic.com/content/dam/science/2020/03/13/coronavirus_og/01_coronavirus_cdc_2871.adapt.1900.1.jpg"}
+          image={defaultCardImg}
         />
       )}
       <CardContent>
