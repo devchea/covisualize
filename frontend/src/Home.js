@@ -6,7 +6,6 @@ import Background from "./background.gif";
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import theme from "./theme";
-import Logo from "./logo.png"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,17 +31,17 @@ export default function Home(props) {
 
 
   return (
-    <Box>
-      <div
-        style={{
-          backgroundImage: `url(${Background})`,
-          width: "1665px",
-          height: "900px",
-          justifyContent: "center",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+    <Box
+      style={{
+        backgroundImage: `url(${Background})`,
+        width: "1665px",
+        height: "955px",
+        justifyContent: "center",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <div>
         {/* <img src={Background} width="1665px" height="900px"></img> */}
         <Button
           variant="contained"

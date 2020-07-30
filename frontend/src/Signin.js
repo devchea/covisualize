@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Background from "./background.gif";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,7 +33,11 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  errors: {
+    color: "red"
+  }
 }));
+
 
 export default function SignIn(props) {
   const classes = useStyles();
@@ -55,7 +61,7 @@ export default function SignIn(props) {
       .then(userInfo => {
         localStorage.token = userInfo.token
         if (localStorage.token === 'undefined'){
-          props.history.push('/login')
+          setError("Invalid Username or Password!");
         } else {
           props.history.push('/dashboard')
         }
@@ -65,13 +71,18 @@ export default function SignIn(props) {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div
+        className={classes.paper}
+      >
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        {errors ? (
+          <Typography className={classes.errors}>{errors}</Typography>
+        ) : null}
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
@@ -89,7 +100,7 @@ export default function SignIn(props) {
             margin="normal"
             required
             fullWidth
-            input name="password"
+            inputname="password"
             label="Password"
             type="password"
             id="password"
