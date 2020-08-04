@@ -130,7 +130,7 @@ function Globe () {
       <div
       style={{
         position: "relative",
-        width: "99vw",
+        width: "98vw",
         height: "55vh",
       }}>
       <ReactGlobe
